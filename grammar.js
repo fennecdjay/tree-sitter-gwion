@@ -121,7 +121,7 @@ module.exports = grammar({
       ';'
     ),
 
-    comment_statement: $ => seq('#!', /.\n/),
+    comment_statement: $ => seq('#!', /(\\+(.|\r?\n)|[^\\\n])*/),
 
     // todo
     foreach_statement: $ => seq('foreach',
@@ -133,6 +133,18 @@ module.exports = grammar({
       ')',
       $.statement
     ),
+
+    import_statement: $ => seq('#import', $.identifier, /\n/),
+    ifdef_statement: $ => seq('#ifdef', $.identifier, /\n/),
+    ifndef_statement: $ => seq('#ifndef', $.identifier, /\n/),
+    undef_statement: $ => seq('#undef', $.identifier, /\n/),
+    else_statement: $ => seq('#else'),
+    endif_statement: $ => seq('#endif'),
+    define_statement: $ => seq('#define',/(\\+(.|\r?\n)|[^\\\n])*/, /\n/),
+
+    // shall we define path instead of regex? 
+    include_statement: $ => seq('#include', '<', /\.\/[a-zA-Z0-9\-]/  , '>', /\n/),
+    
 
     // todo
     for_statement: $ => seq('for'),
@@ -216,7 +228,9 @@ expressions: $ => dotsep1($._expression),
       $.dot_expression,
       $.prefix_expression,
       $.postfix_expression,
-      $.gack_expression
+      $.gack_expression,
+      $.new_expression
+
       // todo: other kinds of expressions
     ),
 
@@ -247,6 +261,10 @@ expressions: $ => dotsep1($._expression),
        '>>>'
     ),
 
+    new_expression: $ => seq(
+      'new',
+      $.type
+    ),
     // todo vararg
     template_definition: $ => seq(
       ':[',

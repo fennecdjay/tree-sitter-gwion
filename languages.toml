@@ -1,0 +1,19 @@
+[language-server.gwiond]
+command = "gwiond"
+config = { provideFormatter = true }
+
+[[language]]
+name = "gwion"
+roots = [ ".git" ]
+scope = "source.gwion"
+injection-regex = "gwion"
+file-types = [ "Gwion", "gwion", "gw", { suffix = ".gw" } ]
+comment-token = "#!"
+indent = { tab-width = 2, unit = "  " }
+#formatter = { command = "mylang-formatter" , args = ["--stdin"] }
+language-servers = [ "gwiond" ]
+
+[[grammar]]
+name = "gwion"
+#source = { git = "https://github.com/example/mylang", rev = "a250c4582510ff34767ec3b7dcdd3c24e8c8aa68" }
+source = { path = "/mnt/code/Gwion/tree-sitter-gwion/" }

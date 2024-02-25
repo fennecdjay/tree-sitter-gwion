@@ -1,0 +1,39 @@
+{
+  "name": "tree-sitter-gwion",
+  "version": "1.0.1",
+  "description": "tree-sitter grammar for gwion",
+  "tree-sitter": [
+    {
+      "scope": "source.gwion",
+      "file-types": [
+        "gw",
+        "gwion",
+        "Gwion"
+      ],
+      "highlights": [
+        "queries/highlights.scm"
+      ]
+    }
+  ],
+  "main": "bindings/node",
+  "scripts": {
+    "generate": "tree-sitter generate && tree-sitter generate && node-gyp build",
+    "test": "tree-sitter generate && time tree-sitter test",
+    "testquick": "time tree-sitter test",
+    "update-test": "tree-sitter test --update",
+    "local_install": "cp queries/*scm ~/.local/share/nvim/lazy/nvim-treesitter/queries/gwion; echo 'RUN :TSInstall gwion' in nvim"
+  },
+  "keywords": [
+    "gwion",
+    "tree-sitter"
+  ],
+  "author": "fennecdjay",
+  "license": "ISC",
+  "dependencies": {
+    "nan": "^2.18.0",
+    "node-gyp": "^10.0.1"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.21.0-pre-release-1"
+  }
+}
