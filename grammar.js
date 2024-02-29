@@ -1,13 +1,24 @@
 module.exports = grammar({
   name: 'gwion',
 
+
+  extras: $ => [
+    /\s/,
+    $.block_comment,
+    $.line_comment,
+  ],
+
   rules: {
     source_file: $ => repeat($._definition),
 
+    block_comment: $ => prec(20, /#!(?:[^\n\r!]|![^#])*(?:!#|[\n\r])/),
+//    line_comment: $ => seq('#!', /(\\+(.|\r?\n)|[^\\\n])*/),
+    line_comment: $ => /#!(?:[^\n\r!]|![^#])*(?:!#|[\n\r]|\\0)/,
     _definition: $ => choice(
       $.class_definition,
       $.structure_definition,
       $.function_definition,
+      $.new_definition,
       $.funptr_definition,
       $.trait_definition,
       $.union_definition,
@@ -21,6 +32,7 @@ module.exports = grammar({
 
     class_definition: $ => seq(
       'class',
+      optional($.flag),
       field('name', $.identifier),
       field('template_definition', optional($.template_definition)),
       seq('{',
@@ -36,8 +48,10 @@ module.exports = grammar({
       '}')
     ),
 
+    // TODO: other operator syntaxes
     function_definition: $ => seq(
-      'fun',
+      choice('fun', 'function', 'operator'),
+      optional($.flag),
       field('return_type', $.type),
       field('name', $.identifier),
       optional($.template_definition),
@@ -45,6 +59,16 @@ module.exports = grammar({
       seq('{',
       optional($.statement_list),
       '}')
+    ),
+
+    new_definition: $=> seq(
+      'operator',
+      field('name', 'new'),
+      optional($.template_definition),
+      $.parameter_list,
+      seq('{',
+      optional($.statement_list),
+      '}'),
     ),
 
     funptr_definition: $ => seq(
@@ -121,7 +145,7 @@ module.exports = grammar({
       ';'
     ),
 
-    comment_statement: $ => seq('#!', /(\\+(.|\r?\n)|[^\\\n])*/),
+//    comment_statement: $ => seq('#!', /(\\+(.|\r?\n)|[^\\\n])*/),
 
     // todo
     foreach_statement: $ => seq('foreach',
@@ -134,18 +158,61 @@ module.exports = grammar({
       $.statement
     ),
 
-    import_statement: $ => seq('#import', $.identifier, /\n/),
-    ifdef_statement: $ => seq('#ifdef', $.identifier, /\n/),
-    ifndef_statement: $ => seq('#ifndef', $.identifier, /\n/),
-    undef_statement: $ => seq('#undef', $.identifier, /\n/),
+    repeat_statement: $ => seq('repeat',
+      '(',
+      optional(seq(field('index', $.identifier), ',')),
+      field('name', $.identifier),
+      ')',
+      $.statement
+    ),
+    pp_statement: $ => choice(
+      $.import_statement,
+      $.ifdef_statement,
+      $.ifndef_statement,
+      $.undef_statement,
+      $.else_statement,
+      $.endif_statement,
+      $.define_statement,
+      $.include_statement,
+      $.if_statement,
+      $.match_statement,
+      $.repeat_statement,
+    )
+    ,
+    import_statement: $ => seq('#import', field('name' , $.identifier), /\n/),
+    ifdef_statement: $ => seq('#ifdef', field('name' , $.identifier), /\n/),
+    ifndef_statement: $ => seq('#ifndef', field('name' , $.identifier), /\n/),
+    undef_statement: $ => seq('#undef', field('name' , $.identifier), /\n/),
     else_statement: $ => seq('#else'),
     endif_statement: $ => seq('#endif'),
     define_statement: $ => seq('#define',/(\\+(.|\r?\n)|[^\\\n])*/, /\n/),
 
     // shall we define path instead of regex? 
-    include_statement: $ => seq('#include', '<', /\.\/[a-zA-Z0-9\-]/  , '>', /\n/),
-    
+    path: $ => /[./a-zA-Z0-9\-]*/,
+    include_path: $ => seq('<', field('name', $.path), '>'),
+    include_statement: $ => seq('#include', field('name', $.include_path), /\n/),
+   
 
+    case_statement: $ => seq(
+      'case',
+      $._expression,
+      ':',
+      $.statement_list
+    ),
+
+    
+    match_statement: $ => seq(
+      'match',
+      $._expression,
+      '{',
+      repeat($.case_statement), // not really optional
+      '}'
+    ),
+
+    if_statement: $ => prec.right(seq(
+      'if', '(', $._expression, ')', $.statement,
+      optional(seq('else', $.statement)))
+    ),
     // todo
     for_statement: $ => seq('for'),
 
@@ -180,7 +247,7 @@ module.exports = grammar({
     ),
 
     type: $ => seq(
-      optional(choice('late', 'const')),
+      optional('const'),
       repeat('&'),
       field('name', $.identifier),
       optional($.template_definition),
@@ -211,12 +278,13 @@ expressions: $ => dotsep1($._expression),
       $.for_statement,
       $.xork_statement,
       $.loop_statement,
-      $.comment_statement,
+      $.pp_statement,
       // todo: other kinds of statements
     ),
 
 
     _expression_statement: $ => seq(
+      optional('return'),
       $._expression,
       ';'
     ),
@@ -226,21 +294,37 @@ expressions: $ => dotsep1($._expression),
       $.number,
       $.decl_expression,
       $.dot_expression,
+      $.binary_expression,
       $.prefix_expression,
       $.postfix_expression,
       $.gack_expression,
-      $.new_expression
-
+      $.new_expression,
+      $.call_expression,
+//$.raw_string_literal
       // todo: other kinds of expressions
     ),
 
+
+    call_expression: $ => seq(
+      $._expression,
+      '(',
+      commasep($._expression),
+      ')'
+    ),
+
     decl_expression:   $ => seq(
-      "var",
+      choice("var", "late"),
+      optional($.flag),
       $.type,
       field('name', $.identifier)
     ),
 
-    prefix_expression: $ => prec(4, seq(
+    binary_expression: $ => prec.left(seq(
+      $._expression,
+      $.operator,
+      $._expression
+    )),
+    prefix_expression: $ => prec(8, seq(
       prec.left($.operator),
       $._expression
     )),
@@ -261,10 +345,11 @@ expressions: $ => dotsep1($._expression),
        '>>>'
     ),
 
-    new_expression: $ => seq(
+    new_expression: $ => prec.right(seq(
       'new',
-      $.type
-    ),
+      $.type,
+      optional(seq('(', $._expression, ')'))
+    )),
     // todo vararg
     template_definition: $ => seq(
       ':[',

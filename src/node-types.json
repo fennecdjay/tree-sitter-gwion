@@ -5,6 +5,172 @@
     "fields": {}
   },
   {
+    "type": "binary_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "decl_expression",
+          "named": true
+        },
+        {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "gack_expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "new_expression",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "operator",
+          "named": true
+        },
+        {
+          "type": "postfix_expression",
+          "named": true
+        },
+        {
+          "type": "prefix_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "block_comment",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "call_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "decl_expression",
+          "named": true
+        },
+        {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "gack_expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "new_expression",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "postfix_expression",
+          "named": true
+        },
+        {
+          "type": "prefix_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "case_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "decl_expression",
+          "named": true
+        },
+        {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "gack_expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "new_expression",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "postfix_expression",
+          "named": true
+        },
+        {
+          "type": "prefix_expression",
+          "named": true
+        },
+        {
+          "type": "statement_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "class_definition",
     "named": true,
     "fields": {
@@ -46,11 +212,19 @@
           "named": true
         },
         {
+          "type": "flag",
+          "named": true
+        },
+        {
           "type": "function_definition",
           "named": true
         },
         {
           "type": "funptr_definition",
+          "named": true
+        },
+        {
+          "type": "new_definition",
           "named": true
         },
         {
@@ -81,11 +255,6 @@
     }
   },
   {
-    "type": "comment_statement",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "decl_expression",
     "named": true,
     "fields": {
@@ -101,15 +270,24 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "flag",
+          "named": true
+        },
         {
           "type": "type",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "define_statement",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "dot_expression",
@@ -125,6 +303,16 @@
         }
       ]
     }
+  },
+  {
+    "type": "else_statement",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "endif_statement",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "enum_definition",
@@ -235,6 +423,14 @@
       "required": true,
       "types": [
         {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
           "type": "decl_expression",
           "named": true
         },
@@ -303,6 +499,10 @@
       "required": true,
       "types": [
         {
+          "type": "flag",
+          "named": true
+        },
+        {
           "type": "parameter_list",
           "named": true
         },
@@ -362,6 +562,14 @@
       "required": true,
       "types": [
         {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
           "type": "decl_expression",
           "named": true
         },
@@ -397,18 +605,282 @@
     }
   },
   {
+    "type": "if_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "decl_expression",
+          "named": true
+        },
+        {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "gack_expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "new_expression",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "postfix_expression",
+          "named": true
+        },
+        {
+          "type": "prefix_expression",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ifdef_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "ifndef_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "import_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "include_path",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "path",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "include_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "include_path",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "loop_statement",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "match_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "case_statement",
+          "named": true
+        },
+        {
+          "type": "decl_expression",
+          "named": true
+        },
+        {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "gack_expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "new_expression",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "postfix_expression",
+          "named": true
+        },
+        {
+          "type": "prefix_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "new_definition",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "new",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter_list",
+          "named": true
+        },
+        {
+          "type": "statement_list",
+          "named": true
+        },
+        {
+          "type": "template_definition",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "new_expression",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "decl_expression",
+          "named": true
+        },
+        {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "gack_expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "new_expression",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "postfix_expression",
+          "named": true
+        },
+        {
+          "type": "prefix_expression",
+          "named": true
+        },
         {
           "type": "type",
           "named": true
@@ -470,6 +942,14 @@
       "required": true,
       "types": [
         {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
           "type": "decl_expression",
           "named": true
         },
@@ -509,6 +989,61 @@
     }
   },
   {
+    "type": "pp_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "define_statement",
+          "named": true
+        },
+        {
+          "type": "else_statement",
+          "named": true
+        },
+        {
+          "type": "endif_statement",
+          "named": true
+        },
+        {
+          "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "ifdef_statement",
+          "named": true
+        },
+        {
+          "type": "ifndef_statement",
+          "named": true
+        },
+        {
+          "type": "import_statement",
+          "named": true
+        },
+        {
+          "type": "include_statement",
+          "named": true
+        },
+        {
+          "type": "match_statement",
+          "named": true
+        },
+        {
+          "type": "repeat_statement",
+          "named": true
+        },
+        {
+          "type": "undef_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "prefix_expression",
     "named": true,
     "fields": {},
@@ -516,6 +1051,14 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
         {
           "type": "decl_expression",
           "named": true
@@ -586,6 +1129,42 @@
     }
   },
   {
+    "type": "repeat_statement",
+    "named": true,
+    "fields": {
+      "index": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "fields": {},
@@ -611,6 +1190,10 @@
         },
         {
           "type": "funptr_definition",
+          "named": true
+        },
+        {
+          "type": "new_definition",
           "named": true
         },
         {
@@ -649,7 +1232,11 @@
       "required": false,
       "types": [
         {
-          "type": "comment_statement",
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
           "named": true
         },
         {
@@ -690,6 +1277,10 @@
         },
         {
           "type": "postfix_expression",
+          "named": true
+        },
+        {
+          "type": "pp_statement",
           "named": true
         },
         {
@@ -763,6 +1354,10 @@
           "named": true
         },
         {
+          "type": "new_definition",
+          "named": true
+        },
+        {
           "type": "primitive_definition",
           "named": true
         },
@@ -797,6 +1392,14 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
         {
           "type": "decl_expression",
           "named": true
@@ -888,6 +1491,10 @@
         },
         {
           "type": "funptr_definition",
+          "named": true
+        },
+        {
+          "type": "new_definition",
           "named": true
         },
         {
@@ -986,6 +1593,22 @@
     }
   },
   {
+    "type": "undef_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "union_definition",
     "named": true,
     "fields": {
@@ -1034,6 +1657,14 @@
       "required": true,
       "types": [
         {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
           "type": "decl_expression",
           "named": true
         },
@@ -1072,10 +1703,6 @@
     "type": "xork_statement",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "#!",
-    "named": false
   },
   {
     "type": "#define",
@@ -1170,6 +1797,10 @@
     "named": false
   },
   {
+    "type": "case",
+    "named": false
+  },
+  {
     "type": "class",
     "named": false
   },
@@ -1183,6 +1814,10 @@
   },
   {
     "type": "do",
+    "named": false
+  },
+  {
+    "type": "else",
     "named": false
   },
   {
@@ -1210,6 +1845,10 @@
     "named": false
   },
   {
+    "type": "function",
+    "named": false
+  },
+  {
     "type": "funptr",
     "named": false
   },
@@ -1222,11 +1861,23 @@
     "named": true
   },
   {
+    "type": "if",
+    "named": false
+  },
+  {
     "type": "late",
     "named": false
   },
   {
+    "type": "line_comment",
+    "named": true
+  },
+  {
     "type": "locale",
+    "named": false
+  },
+  {
+    "type": "match",
     "named": false
   },
   {
@@ -1242,6 +1893,14 @@
     "named": true
   },
   {
+    "type": "operator",
+    "named": false
+  },
+  {
+    "type": "path",
+    "named": true
+  },
+  {
     "type": "primitive",
     "named": false
   },
@@ -1251,6 +1910,14 @@
   },
   {
     "type": "protect",
+    "named": false
+  },
+  {
+    "type": "repeat",
+    "named": false
+  },
+  {
+    "type": "return",
     "named": false
   },
   {
